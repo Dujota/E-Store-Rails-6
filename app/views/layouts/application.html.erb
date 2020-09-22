@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>DepotStore</title>
+    <title>Dujota E-Store</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,8 @@
   </head>
 
   <body>
-    <%= yield %>
+    <main class=<%= controller.controller_name %>>
+      <%= yield %>
+    </main>
   </body>
 </html>
