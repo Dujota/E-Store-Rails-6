@@ -1,17 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Dujota E-Store</title>
+    <title>Dujota Studios Online Store</title>
     <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "application", media: "all", 'data-turbolinks-track': "reload" %>
+    <%= javascript_pack_tag "application", 'data-turbolinks-track': "reload" %>
   </head>
 
   <body>
-    <main class=<%= controller.controller_name %>>
-      <%= yield %>
-    </main>
+    <%# HEADER %>
+    <header class="main">
+      <%= image_tag "logo.svg", alt: "Dujota Studios" %>
+      <h1><%= @page_title %></h1>
+    </header>
+
+    <%# LAYOUT CONTAINER %>
+    <section class="content">
+
+      <%# SIDE NAV %>
+      <nav class="side_nav">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/questions">Questions</a></li>
+          <li><a href="/news">News</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <%# MAIN %>
+      <main class='<%= controller.controller_name %>'>
+        <%= yield %>
+      </main>
+    </section>
   </body>
 </html>
