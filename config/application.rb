@@ -1,4 +1,4 @@
-require_relative 'boot'
+require_relative "boot"
 
 require "rails"
 # Pick the frameworks you want:
@@ -31,5 +31,19 @@ module DepotStore
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Don't generate system test files.
+    config.generators do |g|
+      g.system_tests = nil
+      g.javascript_engine = :js
+
+      # ENABLE TO CONTROL THE SPEC TYPES THAT GET GENERATED
+      # g.test_framework :rspec,
+      #                  request_specs: true,
+      #                  view_specs: false,
+      #                  routing_specs: false,
+      #                  helper_specs: false,
+      #                  controller_specs: false
+    end
   end
 end
