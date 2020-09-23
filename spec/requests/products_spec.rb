@@ -38,12 +38,32 @@ RSpec.describe "/products", type: :request do
       get products_url
       expect(response).to be_successful
     end
+
+    it "renders :index" do
+      product2 = create(:product)
+      product3 = create(:product)
+
+      get products_url
+      expect(response).to render_template :index
+
+      assert_select "td.image", 3
+      assert_select "main tbody tr", 3
+      assert_select "h1", "Products"
+    end
   end
 
   describe "GET /show" do
     it "renders a successful response" do
       get product_url(@product)
       expect(response).to be_successful
+    end
+
+    it "renders :show" do
+      get product_url @product
+      expect(response).to render_template :show
+
+      assert_select "main.products > a", 2
+      assert_select "main.products p", 5
     end
   end
 
@@ -52,12 +72,30 @@ RSpec.describe "/products", type: :request do
       get new_product_url
       expect(response).to be_successful
     end
+
+    it "renders :new" do
+      get new_product_url
+      expect(response).to render_template :new
+
+      assert_select "main.products > form", 1
+      assert_select "main.products > a", 1
+      assert_select "h1", "New Product"
+    end
   end
 
   describe "GET /edit" do
     it "render a successful response" do
       get edit_product_url(@product)
       expect(response).to be_successful
+    end
+
+    it "renders :new" do
+      get edit_product_url @product
+      expect(response).to render_template :edit
+
+      assert_select "main.products > form", 1
+      assert_select "main.products > a", 2
+      assert_select "h1", "Editing Product"
     end
   end
 
