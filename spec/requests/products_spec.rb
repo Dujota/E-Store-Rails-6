@@ -161,6 +161,16 @@ RSpec.describe "/products", type: :request do
   end
 
   describe "DELETE /destroy" do
+    it "it can't delete product in a cart" do
+      product_in_cart = create(:product)
+      cart = create(:cart)
+      line_item = create(:line_item, product: product_in_cart, cart: cart)
+
+      expect {
+        delete product_path(product_in_cart)
+      }.to change(Product, :count).by(0)
+    end
+
     it "destroys the requested product" do
       expect {
         delete product_url(@product)

@@ -1,16 +1,16 @@
 require "rails_helper"
 
 RSpec.describe Product, type: :model do
+  OK_image_urls = %w{fred.gif fred.jpg fred.png FRED.JPG FRED.Jpg​http://a.b.c/x/y/z/fred.gif}
+
+  BAD_image_urls = %w{fred.doc fred.gif/more fred.gif.more}
+
   let(:invalid_product) {
     build(:product, title: nil,
                     description: nil,
                     image_url: nil,
                     price: nil)
   }
-
-  OK_image_urls = %w{fred.gif fred.jpg fred.png FRED.JPG FRED.Jpg​http://a.b.c/x/y/z/fred.gif}
-
-  BAD_image_urls = %w{fred.doc fred.gif/more fred.gif.more}
 
   let(:bad_price_value) { build(:product, price: "some text") }
   let(:bad_price_amount) { build(:product, price: 0.001) }
