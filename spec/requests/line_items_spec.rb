@@ -30,7 +30,6 @@ RSpec.describe "/line_items", type: :request do
   }
 
   let(:invalid_attributes) {
-    # skip("Add a hash of attributes invalid for your model")
     {
       product_id: nil,
       cart_id: nil,
@@ -101,6 +100,7 @@ RSpec.describe "/line_items", type: :request do
 
         assert_select "h2", "Shopping Cart"
         assert_select "li.line-item", 0
+        assert_select "aside#notice", "Unable to add the product to cart"
       end
     end
   end
