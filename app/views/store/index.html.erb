@@ -5,7 +5,7 @@
 <h1>Your E-Store Catalog</h1>
 
 <% if @counter && @counter > 5 %>
-  <p>Thank you for visiting the store <%= pluralize(@counter, "time") %></p>
+  <p>You have seen this page <%= pluralize(@counter, "time") %>.</p>
 <% end %>
 
 
