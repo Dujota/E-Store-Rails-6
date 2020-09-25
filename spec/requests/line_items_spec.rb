@@ -30,7 +30,11 @@ RSpec.describe "/line_items", type: :request do
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    # skip("Add a hash of attributes invalid for your model")
+    {
+      product_id: nil,
+      cart_id: nil,
+    }
   }
 
   describe "GET /index" do
@@ -86,13 +90,17 @@ RSpec.describe "/line_items", type: :request do
     context "with invalid parameters" do
       it "does not create a new LineItem" do
         expect {
-          post line_items_url, params: { line_item: invalid_attributes }
+          post line_items_url, params: { **invalid_attributes }
         }.to change(LineItem, :count).by(0)
       end
 
       it "renders a successful response (i.e. to display the 'new' template)" do
-        post line_items_url, params: { line_item: invalid_attributes }
-        expect(response).to be_successful
+        post line_items_url, params: { **invalid_attributes }
+        expect(response).to redirect_to(cart_url(Cart.last))
+        follow_redirect!
+
+        assert_select "h2", "Shopping Cart"
+        assert_select "li.line-item", 0
       end
     end
   end
