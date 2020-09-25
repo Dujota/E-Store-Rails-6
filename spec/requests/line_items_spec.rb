@@ -75,6 +75,11 @@ RSpec.describe "/line_items", type: :request do
       it "redirects to the created line_item" do
         post line_items_url, params: { **valid_attributes }
         expect(response).to redirect_to(cart_url(Cart.last))
+
+        follow_redirect!
+
+        assert_select "h2", "Shopping Cart"
+        assert_select "li.line-item", 1
       end
     end
 
