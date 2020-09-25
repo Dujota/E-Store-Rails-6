@@ -1,6 +1,8 @@
 class LineItemsController < ApplicationController
   include CurrentCart
+  include ImpressionCounter
   before_action :set_cart, only: [:create]
+  before_action :reset_counter, only: [:create]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
 
   # GET /line_items
@@ -33,6 +35,7 @@ class LineItemsController < ApplicationController
         @line_item = @cart.line_items.build(product: product)
 
         if @line_item.save
+          reset_counter if session[:counter]
           format.html { redirect_to @line_item.cart, notice: "Product added to cart" }
           format.json { render :show, status: :created, location: @line_item }
         else

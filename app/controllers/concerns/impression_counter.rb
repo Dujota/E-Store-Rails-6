@@ -8,4 +8,8 @@ module ImpressionCounter
       session[:counter] += 1
     end
   end
+
+  def reset_counter
+    session[:counter] = 0
+  end
 end
