@@ -32,7 +32,7 @@ class LineItemsController < ApplicationController
       if params[:product_id]
         product = Product.find params[:product_id]
 
-        @line_item = @cart.line_items.build(product: product)
+        @line_item = @cart.add_product(product)
 
         if @line_item.save
           reset_counter if session[:counter]
