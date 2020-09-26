@@ -25,14 +25,12 @@ RSpec.describe "/line_items", type: :request do
   let(:valid_attributes) {
     {
       product_id: product.id,
-      cart_id: cart.id,
     }
   }
 
   let(:invalid_attributes) {
     {
       product_id: nil,
-      cart_id: nil,
     }
   }
 
