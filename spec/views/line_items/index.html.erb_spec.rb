@@ -13,7 +13,7 @@ RSpec.describe "line_items/index", type: :view do
 
   it "renders a list of line_items" do
     render
-    # 4 fields + 1 button X 2 line items
+
     assert_select "tr>td", count: 10
   end
 end
