@@ -65,7 +65,8 @@ CREATE TABLE public.line_items (
     cart_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    quantity integer DEFAULT 1
+    quantity integer DEFAULT 1,
+    price numeric(8,2)
 );
 
 
@@ -233,6 +234,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200923213921'),
 ('20200923222422'),
 ('20200925150816'),
-('20200925152211');
+('20200925152211'),
+('20200926195554'),
+('20200926195738');
 
 
