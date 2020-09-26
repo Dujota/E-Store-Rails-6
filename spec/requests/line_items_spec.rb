@@ -20,7 +20,6 @@ RSpec.describe "/line_items", type: :request do
     @line_item = create(:line_item)
   end
 
-  let(:cart) { create(:cart) }
   let(:product) { create(:product) }
   let(:valid_attributes) {
     {
