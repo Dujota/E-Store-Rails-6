@@ -79,8 +79,9 @@ RSpec.describe "/line_items", type: :request do
         follow_redirect!
 
         assert_select "h2", "Shopping Cart"
-        assert_select "li.line-item", 1
-        assert_select "li.line-item", "1\u00D7#{LineItem.last.product.title}"
+        assert_select "tr.line-item", 1
+        assert_select "td.quantity", "1"
+        assert_select "td.product-title", "#{product.title}"
       end
     end
 
