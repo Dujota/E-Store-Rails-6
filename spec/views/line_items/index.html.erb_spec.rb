@@ -1,22 +1,19 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "line_items/index", type: :view do
   before(:each) do
+    @line_item1 = create(:line_item)
+    @line_item2 = create(:line_item)
+
     assign(:line_items, [
-      LineItem.create!(
-        product: nil,
-        cart: nil
-      ),
-      LineItem.create!(
-        product: nil,
-        cart: nil
-      )
+      @line_item1,
+      @line_item2,
     ])
   end
 
   it "renders a list of line_items" do
     render
-    assert_select "tr>td", text: nil.to_s, count: 2
-    assert_select "tr>td", text: nil.to_s, count: 2
+    # 4 fields + 1 button X 2 line items
+    assert_select "tr>td", count: 10
   end
 end
