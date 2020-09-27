@@ -17,7 +17,7 @@ RSpec.describe "/line_items", type: :request do
   # adjust the attributes here as well.
 
   before :each do
-    @line_item = create(:line_item)
+    @line_item = create(:line_item, price: product.price)
   end
 
   let(:product) { create(:product) }
@@ -72,7 +72,7 @@ RSpec.describe "/line_items", type: :request do
         }.to change(LineItem, :count).by(1)
       end
 
-      it "redirects to the created line_item" do
+      it "redirects to the cart the line_item was created at" do
         post line_items_url, params: { **valid_attributes }
         expect(response).to redirect_to(cart_url(Cart.last))
 
@@ -100,6 +100,25 @@ RSpec.describe "/line_items", type: :request do
         assert_select "h2", "Shopping Cart"
         assert_select "li.line-item", 0
         assert_select "aside#notice", "Unable to add the product to cart"
+      end
+    end
+
+    context "with duplicate products" do
+      it "adds to the quantity of existing line item in cart" do
+        allow_any_instance_of(ActionDispatch::Request).to receive(:session) { { cart_id: @line_item.cart_id } }
+
+        new_product = create(:product)
+        line_item_in_cart = create(:line_item, cart_id: @line_item.cart_id, quantity: 5, price: new_product.price, product_id: new_product.id)
+
+        # duplicate line item added to cart
+        post line_items_url, params: { product_id: new_product.id }
+        expect(response).to redirect_to(cart_url(@line_item.cart))
+
+        follow_redirect!
+
+        assert_select "h2", "Shopping Cart"
+        assert_select "tr.line-item", 2
+        assert_select "td.quantity", "6"
       end
     end
   end
