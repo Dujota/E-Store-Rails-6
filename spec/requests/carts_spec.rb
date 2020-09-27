@@ -36,6 +36,7 @@ RSpec.describe "/carts", type: :request do
 
   describe "GET /show" do
     it "renders a successful response" do
+      allow_any_instance_of(ActionDispatch::Request).to receive(:session) { { cart_id: @cart.id } }
       get cart_url(@cart)
       expect(response).to be_successful
     end
@@ -50,6 +51,7 @@ RSpec.describe "/carts", type: :request do
 
   describe "GET /edit" do
     it "render a successful response" do
+      allow_any_instance_of(ActionDispatch::Request).to receive(:session) { { cart_id: @cart.id } }
       get edit_cart_url(@cart)
       expect(response).to be_successful
     end
