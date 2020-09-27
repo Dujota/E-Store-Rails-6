@@ -10,6 +10,7 @@
         <td class="quantity"><%= line_item.quantity %></td>
         <td class="product-title"><%= line_item.product.title %></td>
         <td class="price"><%= number_to_currency(line_item.total_price) %></td>
+        <td><%= button_to 'remove' %></td>
       </tr>
     <% end %>
     <tfoot>
