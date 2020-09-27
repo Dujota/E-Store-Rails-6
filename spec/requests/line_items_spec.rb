@@ -140,10 +140,10 @@ RSpec.describe "/line_items", type: :request do
         expect(@line_item.product.id).to eq @new_product.id
       end
 
-      it "redirects to the line_item" do
+      it "redirects to the shopping cart" do
         patch line_item_url(@line_item), params: { line_item: new_attributes }
         @line_item.reload
-        expect(response).to redirect_to(line_item_url(@line_item))
+        expect(response).to redirect_to(cart_url(Cart.last))
       end
     end
 
@@ -162,9 +162,9 @@ RSpec.describe "/line_items", type: :request do
       }.to change(LineItem, :count).by(-1)
     end
 
-    it "redirects to the line_items list" do
+    it "redirects to the shopping cart" do
       delete line_item_url(@line_item)
-      expect(response).to redirect_to(line_items_url)
+      expect(response).to redirect_to(cart_url(Cart.last))
     end
   end
 end
