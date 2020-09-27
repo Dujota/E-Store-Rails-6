@@ -74,7 +74,7 @@ RSpec.describe "/line_items", type: :request do
 
       it "redirects to the cart the line_item was created at" do
         post line_items_url, params: { **valid_attributes }
-        expect(response).to redirect_to(cart_url(Cart.last))
+        expect(response).to redirect_to(store_index_url)
 
         follow_redirect!
 
@@ -112,7 +112,7 @@ RSpec.describe "/line_items", type: :request do
 
         # duplicate line item added to cart
         post line_items_url, params: { product_id: new_product.id }
-        expect(response).to redirect_to(cart_url(@line_item.cart))
+        expect(response).to redirect_to(store_index_url)
 
         follow_redirect!
 

@@ -20,6 +20,15 @@
 
       <%# SIDE NAV %>
       <nav class="side_nav">
+
+        <%# CART %>
+        <% if @cart %>
+          <div id="cart" class="carts">
+            <%= render @cart %>
+          </div>
+        <% end %>
+
+        <%# MENU %>
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/questions">Questions</a></li>

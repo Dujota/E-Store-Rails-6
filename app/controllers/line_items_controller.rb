@@ -36,7 +36,7 @@ class LineItemsController < ApplicationController
 
         if @line_item.save
           reset_counter if session[:counter]
-          format.html { redirect_to @line_item.cart }
+          format.html { redirect_to store_index_url }
           format.json { render :show, status: :created, location: @line_item }
         else
           format.html { render :new }
