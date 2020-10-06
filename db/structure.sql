@@ -62,11 +62,12 @@ ALTER SEQUENCE public.carts_id_seq OWNED BY public.carts.id;
 CREATE TABLE public.line_items (
     id bigint NOT NULL,
     product_id bigint NOT NULL,
-    cart_id bigint NOT NULL,
+    cart_id integer,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     quantity integer DEFAULT 1,
-    price numeric(8,2)
+    price numeric(8,2),
+    order_id bigint
 );
 
 
@@ -87,6 +88,40 @@ CREATE SEQUENCE public.line_items_id_seq
 --
 
 ALTER SEQUENCE public.line_items_id_seq OWNED BY public.line_items.id;
+
+
+--
+-- Name: orders; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.orders (
+    id bigint NOT NULL,
+    name character varying,
+    address text,
+    email character varying,
+    pay_type integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.orders_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.orders_id_seq OWNED BY public.orders.id;
 
 
 --
@@ -147,6 +182,13 @@ ALTER TABLE ONLY public.line_items ALTER COLUMN id SET DEFAULT nextval('public.l
 
 
 --
+-- Name: orders id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders ALTER COLUMN id SET DEFAULT nextval('public.orders_id_seq'::regclass);
+
+
+--
 -- Name: products id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -178,6 +220,14 @@ ALTER TABLE ONLY public.line_items
 
 
 --
+-- Name: orders orders_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: products products_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -201,6 +251,13 @@ CREATE INDEX index_line_items_on_cart_id ON public.line_items USING btree (cart_
 
 
 --
+-- Name: index_line_items_on_order_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_line_items_on_order_id ON public.line_items USING btree (order_id);
+
+
+--
 -- Name: index_line_items_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -213,6 +270,14 @@ CREATE INDEX index_line_items_on_product_id ON public.line_items USING btree (pr
 
 ALTER TABLE ONLY public.line_items
     ADD CONSTRAINT fk_rails_11e15d5c6b FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
+-- Name: line_items fk_rails_2dc2e5c22c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.line_items
+    ADD CONSTRAINT fk_rails_2dc2e5c22c FOREIGN KEY (order_id) REFERENCES public.orders(id);
 
 
 --
@@ -236,6 +301,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200925150816'),
 ('20200925152211'),
 ('20200926195554'),
-('20200926195738');
+('20200926195738'),
+('20201006212547'),
+('20201006212631');
 
 
