@@ -61,5 +61,5 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Safe to do since we're only processing data thru the channels
-  config.​action_cable​.​disable_request_forgery_protection​ = ​true​
+  config.action_cable.disable_request_forgery_protection = true
 end

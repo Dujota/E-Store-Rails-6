@@ -14,7 +14,7 @@ consumer.subscriptions.create('ProductsChannel', {
     const storeElement = document.querySelector('main.store');
 
     if (storeElement) {
-      storeElement.innerHTML = data;
+      storeElement.innerHTML = data.html; // the html: render_as_string gets mapped to the .html property
     }
   },
 });
