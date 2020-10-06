@@ -70,6 +70,7 @@ class LineItemsController < ApplicationController
     @line_item.destroy
     respond_to do |format|
       format.html { redirect_to @line_item.cart, notice: "Product removed from your cart" }
+      format.js { @cart = @line_item.cart }
       format.json { head :no_content }
     end
   end
