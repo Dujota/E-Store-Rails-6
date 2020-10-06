@@ -72,6 +72,15 @@ RSpec.describe "/line_items", type: :request do
         }.to change(LineItem, :count).by(1)
       end
 
+      it "creates line item via Ajax" do
+        expect {
+          post line_items_url, xhr: true, params: { **valid_attributes }
+        }.to change(LineItem, :count).by(1)
+
+        expect(response).to be_successful
+        expect(/<tr class=\\"line-item\sline-item-highlight/).to match @response.body
+      end
+
       it "redirects to the cart the line_item was created at" do
         post line_items_url, params: { **valid_attributes }
         expect(response).to redirect_to(store_index_url)
