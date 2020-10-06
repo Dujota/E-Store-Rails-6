@@ -24,9 +24,10 @@
         <%# CART %>
         <% if @cart %>
           <div id="cart" class="carts">
-            <%= render @cart %>
+            <%= render_if @cart.line_items.any?, @cart %>
           </div>
         <% end %>
+
 
         <%# MENU %>
         <ul>
