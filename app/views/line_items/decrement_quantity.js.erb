@@ -4,3 +4,6 @@ cart.innerHTML = "<%= j render @cart %>";
 notice = document.getElementById('notice');
 if(notice) notice.style.display = 'none';
 
+<% if @cart.line_items.length <= 0 %>
+  cart.innerHTML = "";
+<% end %>
