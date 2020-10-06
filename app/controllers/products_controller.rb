@@ -48,7 +48,7 @@ class ProductsController < ApplicationController
         # Action Cable
         @products = Product.all.order(:title) # setup the data to send and control the order
         # Class.server.broadcast channel, format: render_method
-        ActionCable.server.broadcast "products", html: render_to_string("store/index", layout: false)
+        ActionCable.server.broadcast "products", html: render_to_string("store/index", layout: false), product_id: @product.id
       else
         format.html { render :edit }
         format.json { render json: @product.errors, status: :unprocessable_entity }

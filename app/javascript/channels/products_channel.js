@@ -16,5 +16,12 @@ consumer.subscriptions.create('ProductsChannel', {
     if (storeElement) {
       storeElement.innerHTML = data.html; // the html: render_as_string gets mapped to the .html property
     }
+
+    // must be after the html insert since that data would override any selected element that precedes it
+    const productUpdated = document.getElementById(`${data.product_id}`);
+
+    if (productUpdated) {
+      productUpdated.classList.toggle('product-highlight');
+    }
   },
 });
