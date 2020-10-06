@@ -3,7 +3,10 @@
   <td class="product-title"><%= line_item.product.title %></td>
   <td class="price"><%= number_to_currency(line_item.total_price) %></td>
   <td>
-    <%= button_to "remove", line_item,
+    <%= button_to "Decrease Qty", decrement_quantity_line_item_url(line_item),
+                  method: :post,
+                  remote: true %>
+    <%= button_to "Remove", line_item,
                   method: :delete,
                   data: { confirm: "Are you sure?" },
                   remote: true %>

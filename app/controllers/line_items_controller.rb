@@ -1,9 +1,9 @@
 class LineItemsController < ApplicationController
   include CurrentCart
   include ImpressionCounter
-  before_action :set_cart, only: [:create]
+  before_action :set_cart, only: [:create, :decrement_quantity]
   before_action :reset_counter, only: [:create]
-  before_action :set_line_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_line_item, only: [:show, :edit, :update, :destroy, :decrement_quantity]
 
   # GET /line_items
   # GET /line_items.json
@@ -72,6 +72,16 @@ class LineItemsController < ApplicationController
       format.html { redirect_to @line_item.cart, notice: "Product removed from your cart" }
       format.js { @cart = @line_item.cart }
       format.json { head :no_content }
+    end
+  end
+
+  # CUSTOM ACTIONS
+  def decrement_quantity
+    respond_to do |format|
+      if @line_item.decrement_quantity
+        format.js { @current_item = @line_item }
+      else
+      end
     end
   end
 
