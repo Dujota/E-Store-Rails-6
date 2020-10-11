@@ -50,4 +50,5 @@ group :development, :test do
   gem "rspec-rails", "~> 4.0.1"
   gem "pry", "~> 0.13.1"
   gem "rails-controller-testing"
+  gem "faker", "~> 2.14"
 end
